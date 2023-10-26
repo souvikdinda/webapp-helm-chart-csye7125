@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "webapp-chart.fullname" . }}
+  labels:
+    {{- include "webapp-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.deploymentStrategy.type }}
+    rollingUpdate:
+      maxSurge: {{ .Values.deploymentStrategy.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.deploymentStrategy.rollingUpdate.maxUnavailable }}
+  minReadySeconds: {{ .Values.deploymentStrategy.minReadySeconds }}
+  progressDeadlineSeconds: {{ .Values.deploymentStrategy.progressDeadlineSeconds }}
+  selector:
+    matchLabels:
+      {{- include "webapp-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "webapp-chart.labels" . | nindent 8 }}
+
+    spec:
+      imagePullSecrets:
+        - name: quay-creds
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:v{{ .Values.image.tag }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.application.port }}
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configMapName }}
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.application.port }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.application.port }}
+
+      initContainers:
+        - name: init-db
+          image: "{{ .Values.image.flywayRepository }}:v{{ .Values.image.flywayTag }}"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "Waiting for the database to be ready..."
+              apk add postgresql-client
+              until PGPASSWORD=$DB_PASSWORD psql -h $DB_HOSTNAME -U $DB_USERNAME -d $DB_DBNAME -c '\q'; do
+                echo "Waiting for the database to be ready..."
+                sleep 5
+              done
+              echo "PostgreSQL started"
+              flyway -url=jdbc:postgresql://$DB_HOSTNAME:$DB_PORT/$DB_DBNAME -user=$DB_USERNAME -password=$DB_PASSWORD migrate
+              echo "Database setup and Flyway migration completed."
+
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configMapName }}
