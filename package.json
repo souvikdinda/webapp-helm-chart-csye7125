@@ -19,11 +19,7 @@
   "dependencies": {
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.2.1",
+    "github-release": "^0.2.0",
     "semantic-release": "^22.0.5"
-  },
-  "semantic-release": {
-    "branches": [
-      "*"
-    ]
   }
 }
