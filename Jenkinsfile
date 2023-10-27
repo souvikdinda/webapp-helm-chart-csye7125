@@ -17,7 +17,7 @@ pipeline {
         stage('Install Dependencies') {
             steps{
                 script {
-                    sh "npm install -g semantic-release @semantic-release/git @semantic-release/github"
+                    sh "sudo npm install -g semantic-release @semantic-release/git @semantic-release/github"
                 }
             }
         }
