@@ -26,6 +26,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GH_USERNAME', passwordVariable: 'GH_TOKEN')]) {
+                        sh 'git checkout main'
                         def newVersion = sh(script: 'npx semantic-release --dry-run', returnStdout: true).trim()
                         if (newVersion) {
                             echo "New version: ${newVersion}"
