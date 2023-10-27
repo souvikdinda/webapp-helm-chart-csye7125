@@ -1,0 +1,53 @@
+# Default values for webapp-chart
+
+# Replica count for the application
+replicaCount: ""
+
+# Image details for the application and flyway migration
+image:
+  repository: ""
+  flywayRepository: ""
+  flywayTag: ""
+  pullPolicy: ""
+  tag: ""
+
+# Service details for the application
+service:
+  type: ""
+  port: ""
+
+# Target port on which the application is running
+application:
+  port: ""
+  environtment: ""
+
+# Deployment strategies to be followed
+deploymentStrategy:
+  type: ""
+  rollingUpdate:
+    maxSurge: ""
+    maxUnavailable: ""
+  minReadySeconds: ""
+  progressDeadlineSeconds: ""
+
+configMapName: "webapp-configmap"
+
+# Override the values of subchart
+postgresql:
+  enabled: true
+  auth:
+    username: ""
+    password: ""
+    database: ""
+
+# Schema used for the application
+postgres:
+  schema: ""
+  port: ""
+
+  primary:
+    persistence:
+      enabled: true
+      size: ""
+      storageClass: ""
+      accessMode: ""
