@@ -35,7 +35,7 @@ pipeline {
                             echo "New version: v${newVersion}"
                             sh "helm package --version ${newVersion} ."
                             sh "npm install -g github-release --prefix /tmp"
-                            sh "gh release create 'v${newVersion}' *.tgz"
+                            sh "gh release create 'v${newVersion}' *${newVersion}.tgz"
                         } else {
                             error "Failed to capture the new version from semantic-release."
                         }
