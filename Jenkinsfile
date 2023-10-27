@@ -28,7 +28,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GH_USERNAME', passwordVariable: 'GH_TOKEN')]) {
                         withEnv(["GH_TOKEN=${GH_TOKEN}"]) {
-                            def newVersion = sh(script: 'semantic-release --dry-run', returnStdout: true).trim()
+                            def newVersion = sh(script: '/tmp/npm-global/bin/semantic-release --dry-run', returnStdout: true).trim()
                             if (newVersion) {
                                 echo "New version: ${newVersion}"
                                 def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
