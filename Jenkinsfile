@@ -33,7 +33,7 @@ pipeline {
                                 echo "New version: ${newVersion}"
                                 def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                                 echo "Latest commit message: ${latestCommitMessage}"
-                                sh "sed -i 's/version: .*/version: ${newVersion}/' Chart.yaml"
+                                sh "sed -i '0,/version: .*/s/version: .*/version: ${newVersion}/' Chart.yaml"
                                 sh 'helm package .'
                                 sh "github-release create -t ${newVersion} -n '${newVersion}' -d '${latestCommitMessage}' *.tgz"
                             } else {
