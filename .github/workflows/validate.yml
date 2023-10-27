@@ -11,13 +11,12 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v2
 
-          - name: Setup Helm
-            uses: azure/setup-helm@v1
+          - name: Lint Helm
+            uses: WyriHaximus/github-action-helm3@v3
             with:
-              version: '3'
-          
-          - name: Lint Chart
-            run: helm lint .
-
-          - name: Validate Chart Template Chart
-            run: helm template .
+              exec: helm lint .
+      
+          - name: Validate Helm Template
+            uses: WyriHaximus/github-action-helm3@v3
+            with:
+              exec: helm template .

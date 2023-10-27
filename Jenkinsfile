@@ -17,7 +17,8 @@ pipeline {
         stage('Install Dependencies') {
             steps{
                 script {
-                    sh "sudo npm install -g semantic-release @semantic-release/git @semantic-release/github"
+                    sh 'npm config set prefix /tmp/npm-global'
+                    sh "npm install -g semantic-release @semantic-release/git @semantic-release/github --prefix /tmp/npm-global"
                 }
             }
         }
