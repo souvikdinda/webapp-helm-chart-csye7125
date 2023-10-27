@@ -27,14 +27,14 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GH_USERNAME', passwordVariable: 'GH_TOKEN')]) {
                         env.GIT_LOCAL_BRANCH = 'main'
-                        def newVersion = sh(script: 'npx semantic-release --dry-run', returnStdout: true).trim()
-                        if (newVersion) {
-                            echo "New version: ${newVersion}"
-                            def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                            echo "Latest commit message: ${latestCommitMessage}"
-                            sh "sed -i '0,/version: .*/s/version: .*/version: ${newVersion}/' Chart.yaml"
-                            sh 'helm package .'
-                            sh "github-release create -t ${newVersion} -n '${newVersion}' -d '${latestCommitMessage}' *.tgz"
+                        def releaseOutput = sh(script: 'npx semantic-release --dry-run --json', returnStdout: true).trim()
+                        def versionLine = releaseOutput.find(/Published release (\d+\.\d+\.\d+) on default channel/)
+
+                        if(versionLine) {
+                            def newVersion = (versionLine =~ /(\d+\.\d+\.\d+)/)[0][0]
+                            echo "New version: v${newVersion}"
+                            sh "helm package --version ${newVersion} ."
+                            sh "npx github-release create -t 'v${newVersion}' -n 'v${newVersion}' *.tgz"
                         } else {
                             error "Failed to capture the new version from semantic-release."
                         }
