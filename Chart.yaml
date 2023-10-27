@@ -1,6 +1,7 @@
 apiVersion: v2
 name: webapp-chart
 description: A Helm chart for Kubernetes
+icon: https://github.com/souvikdinda/webapp/assets/22276234/35900d3a-2658-414d-af47-bdf191e4bfe7
 
 # A chart can be either an 'application' or a 'library' chart.
 #
