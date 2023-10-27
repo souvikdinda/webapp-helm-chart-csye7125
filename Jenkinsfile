@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     stages{
         stage('Checkout'){
             steps{
@@ -17,7 +17,7 @@ pipeline {
         stage('Install Dependencies') {
             steps{
                 script {
-                    sh 'npm ci'
+                    sh 'sudo npm ci'
                 }
             }
         }

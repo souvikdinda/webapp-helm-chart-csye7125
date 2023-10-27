@@ -1,4 +1,6 @@
 # Helm Chart for Webapp
 ---
 
-Chart to deploy Webapp on GKE cluster
+Created Helm Chart to deploy Webapp on GKE Cluster
+
+Author: Souvik Dinda, Naga Vaishnavi Puppala
