@@ -1,0 +1,24 @@
+{
+  "name": "webapp-helm-chart",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "release.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csye7125-fall2023-group07/webapp-helm-chart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csye7125-fall2023-group07/webapp-helm-chart/issues"
+  },
+  "homepage": "https://github.com/csye7125-fall2023-group07/webapp-helm-chart#readme",
+  "dependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.1",
+    "semantic-release": "^22.0.5"
+  }
+}
