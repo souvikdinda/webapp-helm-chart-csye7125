@@ -27,18 +27,16 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GH_USERNAME', passwordVariable: 'GH_TOKEN')]) {
-                        withEnv(["GH_TOKEN=${GH_TOKEN}"]) {
-                            def newVersion = sh(script: '/tmp/npm-global/bin/semantic-release --dry-run', returnStdout: true).trim()
-                            if (newVersion) {
-                                echo "New version: ${newVersion}"
-                                def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                                echo "Latest commit message: ${latestCommitMessage}"
-                                sh "sed -i '0,/version: .*/s/version: .*/version: ${newVersion}/' Chart.yaml"
-                                sh 'helm package .'
-                                sh "github-release create -t ${newVersion} -n '${newVersion}' -d '${latestCommitMessage}' *.tgz"
-                            } else {
-                                error "Failed to capture the new version from semantic-release."
-                            }
+                        def newVersion = sh(script: '/tmp/npm-global/bin/semantic-release --dry-run', returnStatus: true, returnStdout: true).trim()
+                        if (newVersion == 0) {
+                            echo "New version: ${newVersion}"
+                            def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                            echo "Latest commit message: ${latestCommitMessage}"
+                            sh "sed -i '0,/version: .*/s/version: .*/version: ${newVersion}/' Chart.yaml"
+                            sh 'helm package .'
+                            sh "github-release create -t ${newVersion} -n '${newVersion}' -d '${latestCommitMessage}' *.tgz"
+                        } else {
+                            error "Failed to capture the new version from semantic-release."
                         }
                     }
                 }
