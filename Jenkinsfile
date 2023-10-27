@@ -17,8 +17,7 @@ pipeline {
         stage('Install Dependencies') {
             steps{
                 script {
-                    sh 'npm config set prefix /tmp/npm-global'
-                    sh "npm install -g semantic-release @semantic-release/git @semantic-release/github --prefix /tmp/npm-global"
+                    sh 'npm ci'
                 }
             }
         }
@@ -27,8 +26,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GH_USERNAME', passwordVariable: 'GH_TOKEN')]) {
-                        def newVersion = sh(script: '/tmp/npm-global/bin/semantic-release --dry-run', returnStatus: true, returnStdout: true).trim()
-                        if (newVersion == 0) {
+                        def newVersion = sh(script: 'npx semantic-release --dry-run', returnStdout: true).trim()
+                        if (newVersion) {
                             echo "New version: ${newVersion}"
                             def latestCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                             echo "Latest commit message: ${latestCommitMessage}"
