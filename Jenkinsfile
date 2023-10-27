@@ -34,7 +34,8 @@ pipeline {
                             def newVersion = (versionLine =~ /(\d+\.\d+\.\d+)/)[0][0]
                             echo "New version: v${newVersion}"
                             sh "helm package --version ${newVersion} ."
-                            sh "npx github-release create -t 'v${newVersion}' -n 'v${newVersion}' *.tgz"
+                            sh "npm install -g github-release --prefix /tmp"
+                            sh "gh release create 'v${newVersion}' *.tgz"
                         } else {
                             error "Failed to capture the new version from semantic-release."
                         }
