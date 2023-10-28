@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages{
-        stage('Checkout'){
+        stage('Checkout Main Branch'){
             steps{
                 script {
                     checkout([
