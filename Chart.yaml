@@ -28,3 +28,12 @@ dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
     version: 13.1.5
+
+maintainers:
+  - name: Souvik Dinda
+    email: dinda.s@northeastern.edu
+  - name: Puppala Naga Vaishnavi
+    email: puppala.n@northeastern.edu
+ 
+sources:
+  - https://github.com/csye7125-fall2023-group07/webapp-helm-chart.git
