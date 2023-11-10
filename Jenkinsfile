@@ -14,13 +14,13 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps{
-                script {
-                    sh 'sudo npm ci'
-                }
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps{
+        //         script {
+        //             sh 'sudo npm ci'
+        //         }
+        //     }
+        // }
 
         stage('Semantic-Release') {
             steps {
@@ -34,7 +34,7 @@ pipeline {
                             def newVersion = (versionLine =~ /(\d+\.\d+\.\d+)/)[0][0]
                             echo "New version: v${newVersion}"
                             sh "helm package --version ${newVersion} ."
-                            sh "npm install -g github-release --prefix /tmp"
+                            // sh "npm install -g github-release --prefix /tmp"
                             sh "gh release create 'v${newVersion}' *${newVersion}.tgz"
                             sh 'rm *.tgz'
                         } else {
