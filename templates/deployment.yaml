@@ -22,6 +22,7 @@ spec:
         {{- include "webapp-chart.labels" . | nindent 8 }}
 
     spec:
+      serviceAccountName: {{ .Release.Name }}-serviceaccount
       imagePullSecrets:
         - name: quay-creds
       containers:
