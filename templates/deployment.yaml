@@ -30,7 +30,7 @@ spec:
       #     preferredDuringSchedulingIgnoredDuringExecution:
       #       - labelSelector:
       #           matchExpressions:
-      #             - key: app
+      #             - key: {{ template "webapp-chart.name" . }}
       #               operator: In
       #               values:
       #                 - {{ .Release.Name }}
