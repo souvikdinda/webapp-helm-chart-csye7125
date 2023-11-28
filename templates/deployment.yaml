@@ -4,8 +4,11 @@ metadata:
   name: {{ include "webapp-chart.fullname" . }}
   labels:
     {{- include "webapp-chart.labels" . | nindent 4 }}
+  namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   strategy:
     type: {{ .Values.deploymentStrategy.type }}
     rollingUpdate:
@@ -22,6 +25,16 @@ spec:
         {{- include "webapp-chart.labels" . | nindent 8 }}
 
     spec:
+      # affinty:
+      #   podAffinity:
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector:
+      #           matchExpressions:
+      #             - key: app
+      #               operator: In
+      #               values:
+      #                 - {{ .Release.Name }}
+      #         topologyKey: topology.kubernetes.io/zone
       serviceAccountName: {{ .Release.Name }}-serviceaccount
       imagePullSecrets:
         - name: quay-creds
@@ -35,7 +48,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Values.configMapName }}
-
           livenessProbe:
             httpGet:
               path: /healthz
@@ -44,6 +56,13 @@ spec:
             httpGet:
               path: /healthz
               port: {{ .Values.application.port }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
 
       initContainers:
         - name: init-db

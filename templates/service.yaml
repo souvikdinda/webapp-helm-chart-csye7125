@@ -4,6 +4,7 @@ metadata:
   name: {{ include "webapp-chart.fullname" . }}-service
   labels:
     {{- include "webapp-chart.labels" . | nindent 4 }}
+  namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
