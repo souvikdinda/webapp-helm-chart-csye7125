@@ -129,3 +129,18 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "1"
+
+# limits
+limits:
+    default:
+      memory: "256Mi"
+      cpu: "250m"
+    defaultRequest:
+      memory: "128Mi"
+      cpu: "125m"
+    max:
+      memory: "2560Mi"
+      cpu: "2500m"
+    maxLimitRequestRatio:
+      memory: "4"
+      cpu: "4"
