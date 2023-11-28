@@ -22,3 +22,4 @@ Helm chart to deploy the web application on Kubernetes. This document provides g
 {{- end }}
 
 2. Webapp Version: {{ .Values.image.tag }}, Flyway Migration Version: {{ .Values.image.flywayTag }}
+3. Namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}

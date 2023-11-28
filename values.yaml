@@ -55,21 +55,31 @@
 
 # Default values for webapp-chart
 
+namespace:
+  create: false
+  name: webapp
+
 # Replica count for the application
 replicaCount: 1
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 5
 
 # Image details for the application and flyway migration
 image:
   repository: quay.io/csye-7125/webapp
   flywayRepository: quay.io/csye-7125/webapp-db
-  flywayTag: 1.0.1
+  flywayTag: 1.0.2
   pullPolicy: IfNotPresent
-  tag: 2.2.0
+  tag: 2.3.6
 
 # Service details for the application
 service:
   type: LoadBalancer
-  port: 8082
+  port: 8080
 
 serviceAccount:
   create: true
@@ -111,3 +121,11 @@ postgres:
   port: 5432
 
 operatorNamespace: webapp-operator-system
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
