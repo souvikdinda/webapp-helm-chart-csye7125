@@ -23,17 +23,17 @@ spec:
     metadata:
       labels:
         {{- include "webapp-chart.labels" . | nindent 8 }}
-
+        app : {{ .Release.Name }}
     spec:
-      # affinty:
+      # affinity:
       #   podAffinity:
-      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     prefferedDuringSchedulingIgnoredDuringExecution:
       #       - labelSelector:
       #           matchExpressions:
-      #             - key: {{ template "webapp-chart.name" . }}
+      #             - key: app
       #               operator: In
       #               values:
-      #                 - {{ .Release.Name }}
+      #                 - webapp
       #         topologyKey: topology.kubernetes.io/zone
       serviceAccountName: {{ .Release.Name }}-serviceaccount
       imagePullSecrets:

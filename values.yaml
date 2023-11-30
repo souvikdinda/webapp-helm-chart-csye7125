@@ -1,63 +1,15 @@
-# # Default values for webapp-chart
-
-# # Replica count for the application
-# replicaCount: ""
-
-# # Image details for the application and flyway migration
-# image:
-#   repository: ""
-#   flywayRepository: ""
-#   flywayTag: ""
-#   pullPolicy: ""
-#   tag: ""
-
-# # Service details for the application
-# service:
-#   type: ""
-#   port: ""
-
-# # Target port on which the application is running
-# application:
-#   port: ""
-#   environtment: ""
-
-# # Deployment strategies to be followed
-# deploymentStrategy:
-#   type: ""
-#   rollingUpdate:
-#     maxSurge: ""
-#     maxUnavailable: ""
-#   minReadySeconds: ""
-#   progressDeadlineSeconds: ""
-
-# configMapName: "webapp-configmap"
-
-# # Override the values of subchart
-# postgresql:
-#   enabled: true
-#   auth:
-#     username: ""
-#     password: ""
-#     database: ""
-
-# # Schema used for the application
-# postgres:
-#   schema: ""
-#   port: ""
-
-#   primary:
-#     persistence:
-#       enabled: true
-#       size: ""
-#       storageClass: ""
-#       accessMode: ""
-
-
 # Default values for webapp-chart
 
 namespace:
   create: false
   name: webapp
+
+# Set labels for the application
+
+labels:
+  app: webapp
+  chart: webapp-helm-chart
+  release: webapp
 
 # Replica count for the application
 replicaCount: 1
@@ -128,21 +80,20 @@ resources:
     cpu: "500m"
   limits:
     memory: "512Mi"
-    cpu: "1"
+    cpu: "500m"
 
 # limits
 limits:
-    default:
-      memory: "256Mi"
-      cpu: "250m"
-    defaultRequest:
-      memory: "128Mi"
-      cpu: "125m"
-    max:
-      memory: "2560Mi"
-      cpu: "2500m"
-    maxLimitRequestRatio:
-      memory: "4"
-      cpu: "4"
-
-
+  type: Container
+  default:
+    memory: "256Mi"
+    cpu: "250m"
+  defaultRequest:
+    memory: "128Mi"
+    cpu: "125m"
+  max:
+    memory: "512Mi"
+    cpu: "500m"
+  maxLimitRequestRatio:
+    memory: "4"
+    cpu: "4"
