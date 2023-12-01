@@ -1,19 +1,19 @@
-# apiVersion: v1
-# kind: LimitRange
-# metadata:
-#   name: {{ include "webapp-chart.fullname" . }}-limitrange
-# spec:
-#   limits:
-#   - type: {{ .Values.limits.type }}
-#     default:
-#       memory: {{ .Values.limits.default.memory }}
-#       cpu: {{ .Values.limits.default.cpu }}
-#     defaultRequest:
-#       memory: {{ .Values.limits.defaultRequest.memory }}
-#       cpu: {{ .Values.limits.defaultRequest.cpu }}
-#     max:
-#       memory: {{ .Values.limits.max.memory }}   
-#       cpu: {{ .Values.limits.max.cpu }}    
-#     maxLimitRequestRatio:
-#       memory: {{ .Values.limits.maxLimitRequestRatio.memory }}
-#       cpu: {{ .Values.limits.maxLimitRequestRatio.cpu }}
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: {{ include "webapp-chart.fullname" . }}-limitrange
+spec:
+  limits:
+  - type: Container
+    default:
+      memory: {{ .Values.limits.default.memory }}
+      cpu: {{ .Values.limits.default.cpu }}
+    defaultRequest:
+      memory: {{ .Values.limits.defaultRequest.memory }}
+      cpu: {{ .Values.limits.defaultRequest.cpu }}
+    max:
+      memory: {{ .Values.limits.max.memory }}   
+      cpu: {{ .Values.limits.max.cpu }}    
+    maxLimitRequestRatio:
+      memory: {{ .Values.limits.maxLimitRequestRatio.memory }}
+      cpu: {{ .Values.limits.maxLimitRequestRatio.cpu }}

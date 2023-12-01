@@ -25,16 +25,18 @@ spec:
         {{- include "webapp-chart.labels" . | nindent 8 }}
         app : {{ .Release.Name }}
     spec:
-      # affinity:
-      #   podAffinity:
-      #     prefferedDuringSchedulingIgnoredDuringExecution:
-      #       - labelSelector:
-      #           matchExpressions:
-      #             - key: app
-      #               operator: In
-      #               values:
-      #                 - webapp
-      #         topologyKey: topology.kubernetes.io/zone
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: {{ template "webapp-chart.name" . }}
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}
+                topologyKey: topology.kubernetes.io/zone
       serviceAccountName: {{ .Release.Name }}-serviceaccount
       imagePullSecrets:
         - name: quay-creds

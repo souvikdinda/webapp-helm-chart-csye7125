@@ -72,28 +72,28 @@ postgres:
   schema: app
   port: 5432
 
-operatorNamespace: webapp-operator-system
+# operatorNamespace: webapp-operator-system
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "500m"
+    memory: "512Mi"
+    cpu: "350m"
   limits:
     memory: "512Mi"
     cpu: "500m"
 
 # limits
 limits:
-  type: Container
-  default:
-    memory: "256Mi"
-    cpu: "250m"
-  defaultRequest:
-    memory: "128Mi"
-    cpu: "125m"
-  max:
-    memory: "512Mi"
-    cpu: "500m"
-  maxLimitRequestRatio:
-    memory: "4"
-    cpu: "4"
+    type: container
+    default:
+      memory: "512Mi"
+      cpu: "350m"
+    defaultRequest:
+      memory: "512Mi"
+      cpu: "350m"
+    max:
+      memory: "512Mi"
+      cpu: "500m"
+    maxLimitRequestRatio:
+      memory: "4"
+      cpu: "4"
