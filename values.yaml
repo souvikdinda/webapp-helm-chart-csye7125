@@ -20,6 +20,8 @@ autoscaling:
   maxReplicas: 5
   targetCPUUtilizationPercentage: 5
 
+  
+
 # Image details for the application and flyway migration
 image:
   repository: quay.io/csye-7125/webapp
