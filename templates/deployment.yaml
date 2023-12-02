@@ -32,7 +32,7 @@ spec:
               podAffinityTerm:
                 labelSelector:
                   matchExpressions:
-                    - key: {{ template "webapp-chart.name" . }}
+                    - key: app
                       operator: In
                       values:
                         - {{ .Release.Name }}

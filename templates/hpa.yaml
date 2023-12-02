@@ -6,6 +6,8 @@ metadata:
   labels:
     {{- include "webapp-chart.labels" . | nindent 4 }}
   namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
+  annotations:
+    # You can add any necessary annotations here
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -22,12 +24,6 @@ spec:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
-    {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    {{- end }}
+  # Specify the serviceAccountName for the HPA
+  serviceAccountName: {{ .Release.Name }}-hpa-serviceaccount
 {{- end }}

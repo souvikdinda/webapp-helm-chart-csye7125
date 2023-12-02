@@ -2,8 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ .Release.Name }}-httpcheck-role
-  # namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
-  namespace: {{ .Values.operatorNamespace }}
+  namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
 rules:
 - apiGroups:
   - csye7125-fall2023-group07.operator.souvikdinda.me
@@ -16,4 +15,3 @@ rules:
   - create
   - update
   - patch
-  - delete
