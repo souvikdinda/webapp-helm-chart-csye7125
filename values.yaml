@@ -81,20 +81,20 @@ resources:
     memory: "512Mi"
     cpu: "350m"
   limits:
-    memory: "512Mi"
+    memory: "1Gi"
     cpu: "500m"
 
 # limits
 limits:
     type: container
     default:
-      memory: "512Mi"
-      cpu: "350m"
+      memory: "1Gi"
+      cpu: "500m"
     defaultRequest:
-      memory: "512Mi"
-      cpu: "350m"
+      memory: "1Gi"
+      cpu: "500m"
     max:
-      memory: "512Mi"
+      memory: "2Gi"
       cpu: "500m"
     maxLimitRequestRatio:
       memory: "4"

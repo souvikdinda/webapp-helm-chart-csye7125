@@ -24,6 +24,8 @@ spec:
       labels:
         {{- include "webapp-chart.labels" . | nindent 8 }}
         app : {{ .Release.Name }}
+      annotations:
+        sidecar.istio.io/inject: "true"
     spec:
       affinity:
         podAffinity:
