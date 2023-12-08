@@ -5,12 +5,12 @@ metadata:
   namespace:  {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
 spec:
   selector:
-    istio: ingress
-    app: istio-ingress
+    istio: ingressgateway
+    app: ingressgateway
   servers:
     - port:
         number: 80
         name: http
-        protocol:  TCP
+        protocol:  HTTP
       hosts:
         - "*"

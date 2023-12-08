@@ -13,7 +13,4 @@ spec:
       cpu: {{ .Values.limits.defaultRequest.cpu }}
     max:
       memory: {{ .Values.limits.max.memory }}   
-      cpu: {{ .Values.limits.max.cpu }}    
-    maxLimitRequestRatio:
-      memory: {{ .Values.limits.maxLimitRequestRatio.memory }}
-      cpu: {{ .Values.limits.maxLimitRequestRatio.cpu }}
+      cpu: {{ .Values.limits.max.cpu }}   
