@@ -74,7 +74,7 @@ postgres:
   schema: app
   port: 5432
 
-# operatorNamespace: webapp-operator-system
+operatorNamespace: webapp-operator-system
 
 resources:
   requests:
