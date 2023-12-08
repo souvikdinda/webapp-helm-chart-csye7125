@@ -24,6 +24,4 @@ spec:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
-  # Specify the serviceAccountName for the HPA
-  serviceAccountName: {{ .Release.Name }}-hpa-serviceaccount
 {{- end }}

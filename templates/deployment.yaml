@@ -27,6 +27,7 @@ spec:
       annotations:
         sidecar.istio.io/inject: "true"
     spec:
+      serviceAccountName: {{ .Release.Name }}-serviceaccount
       affinity:
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -39,7 +40,6 @@ spec:
                       values:
                         - {{ .Release.Name }}
                 topologyKey: topology.kubernetes.io/zone
-      serviceAccountName: {{ .Release.Name }}-serviceaccount
       imagePullSecrets:
         - name: quay-creds
       containers:

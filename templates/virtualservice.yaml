@@ -11,6 +11,6 @@ spec:
   http:
   - route:
     - destination:
-        host: {{ include "webapp-chart.fullname" . }}-service
+        host: {{ include "webapp-chart.fullname" . }}-service.webapp.svc.cluster.local
         port:
           number: {{ .Values.service.port }}

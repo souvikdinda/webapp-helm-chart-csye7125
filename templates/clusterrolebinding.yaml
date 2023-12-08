@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-cluster-role-binding
 subjects:
 - kind: ServiceAccount
-  name: {{ .Release.Name }}-hpa-serviceaccount
+  name: {{ .Release.Name }}-serviceaccount
   namespace: {{ if .Values.namespace.create }}{{ .Values.namespace.name }}{{ else }}{{ .Release.Namespace }}{{ end }}
 roleRef:
   kind: ClusterRole

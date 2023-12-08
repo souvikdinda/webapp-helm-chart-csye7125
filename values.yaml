@@ -32,8 +32,8 @@ image:
 
 # Service details for the application
 service:
-  type: LoadBalancer
-  port: 8080
+  type: ClusterIP
+  port: 80
 
 serviceAccount:
   create: true
@@ -95,7 +95,4 @@ limits:
       cpu: "500m"
     max:
       memory: "2Gi"
-      cpu: "500m"
-    maxLimitRequestRatio:
-      memory: "4"
-      cpu: "4"
+      cpu: "2"
